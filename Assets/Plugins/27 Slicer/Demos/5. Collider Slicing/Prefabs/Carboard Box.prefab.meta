@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3e64c4c9e86ee484090e9cc906b8ee56
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/5. Collider Slicing/Prefabs/Carboard
+    Box.prefab
+  uploadId: 764903

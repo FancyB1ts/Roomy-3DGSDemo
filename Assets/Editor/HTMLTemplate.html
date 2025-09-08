@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta name="app-build-id" content="__PRODUCT_VERSION__">
+    <script>
+      // Version check: ensure refresh/new tab always picks the latest build
+      (function () {
+        try {
+          var meta = document.querySelector('meta[name="app-build-id"]');
+          var currentId = meta ? meta.content : '';
+          fetch('/version.json', { cache: 'no-store' })
+            .then(function (r) { return r.ok ? r.json() : {}; })
+            .then(function (j) {
+              var serverId = j && j.buildId;
+              if (serverId && serverId !== currentId) {
+                var u = new URL(location.href);
+                u.searchParams.set('v', serverId); // cache-bust whole navigation
+                location.replace(u.toString());     // full page reload (not partial)
+              }
+            })
+            .catch(function () { /* silent */ });
+        } catch (e) { /* silent */ }
+      })();
+    </script>
+    <script>
+      // Issue the upload auth cookie (HttpOnly) once per page load
+      (function () {
+        try {
+          if (!navigator.cookieEnabled) return;
+          fetch('/.netlify/functions/issue-upload-cookie', {
+            credentials: 'include',
+            cache: 'no-store',
+            method: 'GET',
+            mode: 'same-origin'
+          }).catch(function () { /* silent */ });
+        } catch (e) { /* silent */ }
+      })();
+    </script>
+    <script>
+      // Build absolute same-origin URLs robustly
+      window.Roomy = window.Roomy || {};
+      window.Roomy.autoShowUnity = (typeof window.Roomy.autoShowUnity === 'boolean') ? window.Roomy.autoShowUnity : false;
+      window.Roomy.abs = function(pathOrUrl) {
+        try { return new URL(pathOrUrl, window.location.origin).toString(); }
+        catch (_) { return pathOrUrl; }
+      };
+      // Safe final-beacon sender that never throws (debug logs on failure if enabled)
+      window.Roomy.__LOG = /\blog=1\b/.test(location.search) || localStorage.getItem('roomyDebug') === '1';
+      window.Roomy.sendFinalBeacon = function(pathOrUrl, data) {
+        return new Promise((resolve) => {
+          try {
+            const url = window.Roomy.abs(pathOrUrl);
+            const payload = (typeof data === 'string') ? data : JSON.stringify(data || {});
+            if (navigator.sendBeacon && payload.length < 60000) {
+              try {
+                const blob = new Blob([payload], { type: 'application/json' });
+                const ok = navigator.sendBeacon(url, blob);
+                if (!ok && window.Roomy.__LOG) console.warn('[Roomy] sendBeacon returned false for', url);
+                return resolve({ ok: !!ok, method: 'beacon' });
+              } catch (e) {
+                if (window.Roomy.__LOG) console.warn('[Roomy] sendBeacon threw:', e);
+                // fall through to fetch
+              }
+            }
+            fetch(url, { method: 'POST', keepalive: true, headers: { 'content-type': 'application/json' }, body: payload, credentials: 'include', mode: 'same-origin' })
+              .then(res => {
+                const ok = !!res && res.ok;
+                if (!ok && window.Roomy.__LOG) console.warn(`[Roomy] Save failed with status ${res ? res.status : 'n/a'} at ${url}`);
+                resolve({ ok, status: res ? res.status : 0, method: 'fetch' });
+              })
+              .catch(err => {
+                if (window.Roomy.__LOG) console.warn('[Roomy] Save request error:', err);
+                resolve({ ok: false, error: 'network', method: 'fetch' });
+              });
+          } catch (err) {
+            if (window.Roomy.__LOG) console.warn('[Roomy] Save helper error:', err);
+            resolve({ ok: false, error: 'helper' });
+          }
+        });
+      };
+    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- Fixed viewport meta tag for iOS stability -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover, interactive-widget=overlays-content">
+    <title>Roomy | __PRODUCT_NAME__</title>
+    
+    
+    <!-- Social preview metadata -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://plan.roomy-app.co/">
+    <meta property="og:title" content="Roomy Layout Planner">
+    <meta property="og:description" content="Plan rooms in 3D right in your browser. Upload a floor plan and start arranging.">
+    <meta property="og:image" content="https://plan.roomy-app.co/og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Roomy Layout Planner">
+    <meta name="twitter:description" content="Plan rooms in 3D right in your browser. Upload a floor plan and start arranging.">
+    <meta name="twitter:image" content="https://plan.roomy-app.co/og.jpg">
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="preload" as="script" href="__BUILD_URL__/__BUILD_NAME__.loader.js?v=__PRODUCT_VERSION__">
+    
+
+    <!-- ADD: Critical CSS styles -->
+    <style>
+      /* === Z-INDEX TOKENS & STATE CLASSES (no visual change) === */
+      :root {
+        --z-bg: -10;
+        --z-unity: 1;
+        --z-react: 1000;
+        --z-overlay: 9999;
+        --z-modal: 10000;
+      }
+      /* Body state flags set by scripts */
+      body.show-unity #unity-container { display: block; }
+      body.hide-react #react-container { display: none; }
+      body.is-overlay #unity-container { pointer-events: none; }
+
+      /* System modal (non-React) */
+      #system-modal-backdrop {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+        display: none; align-items: center; justify-content: center;
+        z-index: var(--z-modal); padding: 1.5rem;
+      }
+      #system-modal {
+        background: #ffffff; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        max-width: 28rem; width: 100%;
+        padding: 1.25rem 1.25rem 1rem;
+      }
+      #system-modal h3 {
+        margin: 0 0 .5rem 0; font-size: 1.125rem; font-weight: 700; color: #111827;
+      }
+      #system-modal p {
+        margin: 0 0 1rem 0; font-size: .95rem; color: #4b5563; line-height: 1.45;
+      }
+      #system-modal .actions {
+        display: flex; justify-content: flex-end; gap: .5rem;
+      }
+      #system-modal .btn {
+        appearance: none; border: none; border-radius: 8px; padding: .5rem 1rem;
+        font-weight: 600; cursor: pointer; transition: filter .2s ease;
+        background: #111827; color: #fff;
+      }
+      #system-modal .btn:hover { filter: brightness(1.08); }
+      /* Reset and base styles */
+      /* Background container - always visible behind everything */
+      .background-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: var(--z-bg);
+        background-color: #ffffff;
+        background-image: 
+          url('Background/left-bar.png'),
+          url('Background/right-bar.png'),
+          url('Background/center-bg.jpg');
+        background-position: 
+          left center,
+          right center,
+          center center;
+        background-repeat: no-repeat, no-repeat, no-repeat;
+        background-size: auto 100%, auto 100%, cover;
+      }
+      /* Reset and base styles */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body, html { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+      html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+      /* Prefer small/large viewport units in a stable order */
+      /* Android Chrome prefers svh to avoid black-frame / 1px seams */
+      @supports (height: 100svh) {
+        html, body { height: 100svh; overflow: hidden; overscroll-behavior: contain; }
+        #unity-container, #unity-canvas { width: 100vw; height: 100svh; position: fixed; inset: 0; }
+      }
+      /* iOS 17+ works well with lvh */
+      @supports (height: 100lvh) and (not (height: 100svh)) {
+        html, body { height: 100lvh; overflow: hidden; overscroll-behavior: contain; }
+        #unity-container, #unity-canvas { width: 100vw; height: 100lvh; position: fixed; inset: 0; }
+      }
+      /* Fallback for older browsers: lock to initial innerHeight via JS */
+      @supports (not (height: 100svh)) and (not (height: 100lvh)) {
+        :root { --vh: 1vh; } /* set by JS at boot */
+        html, body { height: calc(var(--vh) * 100); overflow: hidden; overscroll-behavior: contain; }
+        #unity-container, #unity-canvas { width: 100vw; height: calc(var(--vh) * 100); position: fixed; inset: 0; }
+      }
+
+      /* Opt-in safe-area handling to avoid cutoffs on devices with insets */
+      /* Apply only when #unity-container has the .safe-area class */
+      @supports (padding: env(safe-area-inset-bottom)) {
+        #unity-container.safe-area {
+          padding-top: env(safe-area-inset-top);
+          padding-bottom: env(safe-area-inset-bottom);
+          padding-left: env(safe-area-inset-left);
+          padding-right: env(safe-area-inset-right);
+          box-sizing: border-box;
+        }
+        /* When safe-area is active, canvas fills the padded content box */
+        #unity-container.safe-area #unity-canvas {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      /* Prevent iOS auto-zoom on inputs */
+      input, textarea { font-size: 16px; }
+      /* Page lock: used while uploader overlay is visible */
+      body.lock-scroll { overflow: hidden; }
+       
+      /* Hide Unity status indicator */
+      .mb-4.text-center {
+        display: none !important;
+      }
+      /* Hide Unity warning area entirely for end users */
+      #unity-warning { display: none !important; }
+
+
+
+      /* ===================== */
+      /*  NON-CRITICAL UTILITIES (can be moved to external CSS later)  */
+      /* ===================== */
+
+      /* Container styles */
+      #react-container { display: block; position: relative; z-index: var(--z-react); }
+
+      #unity-container { 
+        display: none;           /* hidden at boot */
+        position: fixed;
+        inset: 0;
+        z-index: var(--z-unity);
+      }
+      
+      /* NEW: Overlay styles for React uploader */
+      .overlay-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* Default: dim overlay used when uploader is invoked from inside Unity (Replace Floorplan) */
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: var(--z-overlay);
+        padding: 2rem;
+      }
+      /* First-time landing mode: fully branded background that completely covers Unity */
+      body.is-overlay--branded .overlay-container,
+      .overlay-container.overlay--branded {
+        background-color: #ffffff;
+        background-image:
+          url('Background/left-bar.png'),
+          url('Background/right-bar.png'),
+          url('Background/center-bg.jpg');
+        background-position:
+          left center,
+          right center,
+          center center;
+        background-repeat: no-repeat, no-repeat, no-repeat;
+        background-size: auto 100%, auto 100%, cover;
+      }
+      .overlay-content {
+        background: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        padding: 2rem;
+        max-width: 32rem;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      
+      /* Layout classes */
+      .h-screen { height: 100vh; }
+      .bg-gradient-to-br { 
+        background: transparent !important; 
+      }
+      .p-6 { 
+        padding-top: 12vh; 
+        padding-bottom: 18vh; 
+        padding-left: 1.5rem; 
+        padding-right: 1.5rem; 
+      }
+      .flex { display: flex; }
+      .flex-col { flex-direction: column; }
+      .items-center { align-items: center; }
+      .justify-center { justify-content: center; }
+      .max-w-4xl { max-width: 56rem; }
+      .mx-auto { margin-left: auto; margin-right: auto; }
+      .flex-1 { flex: 1; }
+      .min-h-0 { min-height: 0; }
+      
+      /* Card styles */
+      .bg-white { background-color: white; }
+      .rounded-xl { border-radius: 0.75rem; }
+      .shadow-lg { box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.25), 0 8px 15px -3px rgba(0, 0, 0, 0.15); }
+      .p-8 { padding: 2rem; }
+      .p-12 { padding: 3rem; }
+      
+      /* Status indicator styles */
+      .mb-4 { margin-bottom: 1rem; }
+      .mb-6 { margin-bottom: 1.5rem; }
+      .text-center { text-align: center; }
+      .inline-flex { display: inline-flex; }
+      .items-center { align-items: center; }
+      .space-x-2 > * + * { margin-left: 0.5rem; }
+      .px-4 { padding-left: 1rem; padding-right: 1rem; }
+      .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+      .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+      .rounded-lg { border-radius: 0.5rem; }
+      .text-sm { font-size: 0.875rem; }
+      
+      /* Status colors */
+      .bg-green-100 { background-color: #dcfce7; }
+      .text-green-800 { color: #166534; }
+      .bg-blue-100 { background-color: #dbeafe; }
+      .text-blue-800 { color: #1e40af; }
+      .bg-yellow-100 { background-color: #fef3c7; }
+      .text-yellow-800 { color: #92400e; }
+      .bg-red-100 { background-color: #fee2e2; }
+      .text-red-800 { color: #991b1b; }
+      
+      /* NEW: Button styles for cancel button */
+      .bg-gray-500 { background-color: #6b7280; }
+      .bg-gray-600 { background-color: #4b5563; }
+      .hover\:bg-gray-600:hover { background-color: #4b5563; }
+      .text-white { color: white; }
+      .transition-colors { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; transition-duration: 300ms; }
+      
+      /* Dot styles */
+      .w-2 { width: 0.5rem; }
+      .h-2 { height: 0.5rem; }
+      .w-12 { width: 3rem; }
+      .h-12 { height: 3rem; }
+      .rounded-full { border-radius: 9999px; }
+      .bg-green-500 { background-color: #22c55e; }
+      .bg-blue-500 { background-color: #3b82f6; }
+      .bg-yellow-500 { background-color: #eab308; }
+      .bg-red-500 { background-color: #ef4444; }
+      .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+      .animate-spin { animation: spin 1s linear infinite; }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      
+      /* Loading spinner */
+      .border-4 { border-width: 4px; }
+      .border-blue-500 { border-color: #3b82f6; }
+      .border-t-transparent { border-top-color: transparent; }
+      
+      /* Upload area styles */
+      .border-3 { border-width: 3px; }
+      .border-dashed { border-style: dashed; }
+      .border-gray-300 { border-color: #d1d5db; }
+      .border-blue-400 { border-color: #60a5fa; }
+      .bg-gray-50 { background-color: #f9fafb; }
+      .bg-blue-50 { background-color: #eff6ff; }
+      .transition-all { transition-property: all; transition-duration: 300ms; }
+      .cursor-pointer { cursor: pointer; }
+      
+      /* Text styles */
+      .text-xl { font-size: 1.25rem; }
+      .text-2xl { font-size: 1.5rem; }
+      .font-semibold { font-weight: 600; }
+      .font-bold { font-weight: 700; }
+      .text-gray-700 { color: #374151; }
+      .text-gray-500 { color: #6b7280; }
+      .text-gray-400 { color: #9ca3af; }
+      .text-gray-600 { color: #4b5563; }
+      .text-gray-900 { color: #111827; }
+      
+      /* Icon placeholder */
+      .file-icon { 
+        width: 4rem; 
+        height: 4rem; 
+        background: #e5e7eb; 
+        border-radius: 0.5rem; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        font-size: 2rem; 
+        margin: 0 auto 1rem; 
+      }
+      
+      /* Hover effects */
+      .upload-area:hover { 
+        border-color: #9ca3af; 
+        background-color: #f3f4f6; 
+      }
+      .upload-area.drag-over { 
+        border-color: #60a5fa; 
+        background-color: #eff6ff; 
+        transform: scale(1.02); 
+      }
+      
+      /* Hidden input */
+      .hidden { display: none; }
+      /* Accessibility-safe: remove blue focus ring on the Unity surface only */
+      #unity-canvas,
+      #unity-container { outline: none; border: 0; }
+      #unity-canvas:focus,
+      #unity-container:focus,
+      #unity-canvas:focus-visible,
+      #unity-container:focus-visible { outline: none !important; box-shadow: none !important; }
+      /* Avoid iOS/Android tap highlight glow on the canvas */
+      #unity-canvas { -webkit-tap-highlight-color: transparent; }
+      #unity-canvas { background-color: transparent !important; }
+    </style>
+
+    <style>
+      /* When the keyboard is open, lift Unity container by the obscured bottom inset so the iOS input bar is visible */
+      html.ime-open #unity-container {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: calc(var(--kb, 0px) + var(--kb-buffer, 44px)); /* reserve ~44px for iOS input preview bar */
+      }
+      html.ime-open #unity-container #unity-canvas {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+
+
+    <!-- OpenReplay Tracking Code for Roomy (hosted cloud) -->
+    <script>
+      var initOpts = {
+        projectKey: "NpUrvTDaKI6OyGJVe2jY",
+        defaultInputMode: 0,
+        obscureTextNumbers: false,
+        obscureTextEmails: true,
+      };
+      var startOpts = { userID: "" };
+      (function(A,s,a,y,e,r){
+        r=window.OpenReplay=[e,r,y,[s-1, e]];
+        s=document.createElement('script');s.src=A;s.async=!a;
+        document.getElementsByTagName('head')[0].appendChild(s);
+        r.start=function(v){r.push([0])};
+        r.stop=function(v){r.push([1])};
+        r.setUserID=function(id){r.push([2,id])};
+        r.setUserAnonymousID=function(id){r.push([3,id])};
+        r.setMetadata=function(k,v){r.push([4,k,v])};
+        r.event=function(k,p,i){r.push([5,k,p,i])};
+        r.issue=function(k,p){r.push([6,k,p])};
+        r.isActive=function(){return false};
+        r.getSessionToken=function(){};
+      })("https://static.openreplay.com/latest/openreplay.js",1,0,initOpts,startOpts);
+    </script>
+    <script>
+      (function startOR(){
+        if (window.OpenReplay && typeof OpenReplay.start === 'function') {
+          try { OpenReplay.start(); } catch(e) { /* silent */ }
+        } else {
+          setTimeout(startOR, 60);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- ADD: Background container (always visible) -->
+        <div class="background-container"></div>
+        
+        <!-- ADD: React container (for overlay) -->
+        <div id="react-container"></div>
+    <!-- System modal (friendly errors) -->
+    <div id="system-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="sysmod-title" aria-describedby="sysmod-desc">
+      <div id="system-modal">
+        <h3 id="sysmod-title">Oops!</h3>
+        <p id="sysmod-desc">We’re having some trouble loading the floor planner. Please try uploading again.</p>
+        <div class="actions">
+          <button id="system-modal-ok" class="btn" type="button">Got it</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Unity container (hidden at boot) -->
+    <div id="unity-container">
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+    </div>
+
+    <!-- React and Babel CDN in correct order -->
+    <!-- 1. Load Babel first -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- 2. Load React + ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- 3. Load your JSX script (after Babel is ready) -->
+    <script src="floorplan-uploader.js"></script>
+
+
+    <script>
+      // Simple overlay mode manager - React controls everything explicitly
+      window.Roomy = window.Roomy || {};
+      window.Roomy.setOverlayMode = function(mode) {
+        // mode: 'first-upload' or 'replace-floorplan' or 'hidden'
+        document.body.classList.remove('is-overlay', 'is-overlay--branded');
+        
+        if (mode === 'first-upload') {
+          document.body.classList.add('is-overlay', 'is-overlay--branded');
+        } else if (mode === 'replace-floorplan') {
+          document.body.classList.add('is-overlay');
+        }
+        // mode === 'hidden' removes all classes (already done above)
+      };
+    </script>
+
+    <script>
+      // Resize manager: pin canvas to stable viewport; ignore IME; reset on rotation/large delta
+      (function(){
+        var initialH = window.innerHeight; // baseline before keyboard
+        document.documentElement.style.setProperty('--vh', (initialH * 0.01) + 'px');
+
+        var cv = null;
+        var scheduled = false;
+        var lastW = 0, lastH = 0, lastDpr = 0;
+
+        function ensureCanvas(){ if (!cv) cv = document.getElementById('unity-canvas'); return !!cv; }
+
+        function isKeyboardOpen() {
+          var vv = window.visualViewport;
+          var vvh = (vv && vv.height) || window.innerHeight;
+          var offset = (vv && vv.offsetTop) || 0;   // iOS IME → often > 0 when keyboard is visible
+          // Treat ~14%+ shrink as IME; include offsetTop signal for iOS
+          return (vvh < initialH * 0.86) || (offset > 0);
+        }
+
+        function resetBaseline(newH){
+          initialH = Math.max(1, newH || window.innerHeight);
+          document.documentElement.style.setProperty('--vh', (initialH * 0.01) + 'px');
+          applyCanvasSizeNow();
+        }
+
+        function getTargetSize(){
+          var vw = window.innerWidth | 0;
+          var vh = initialH | 0;
+          var dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 3));
+          // Subtract safe-area paddings if enabled
+          var cont = document.getElementById('unity-container');
+          if (cont && cont.classList.contains('safe-area')) {
+            var cs = getComputedStyle(cont);
+            var pt = parseFloat(cs.paddingTop)    || 0;
+            var pb = parseFloat(cs.paddingBottom) || 0;
+            var pl = parseFloat(cs.paddingLeft)   || 0;
+            var pr = parseFloat(cs.paddingRight)  || 0;
+            vh = Math.max(1, vh - pt - pb) | 0;
+            vw = Math.max(1, vw - pl - pr) | 0;
+          }
+          return { vw: vw, vh: vh, dpr: dpr };
+        }
+
+        function sizesEqual(a){ return a.vw === lastW && a.vh === lastH && a.dpr === lastDpr; }
+
+        function applyCanvasSizeNow(){
+          if (!ensureCanvas()) return;
+          var s = getTargetSize();
+          if (sizesEqual(s)) return;
+
+          cv.style.width  = s.vw + 'px';
+          cv.style.height = s.vh + 'px';
+          var pxW = Math.round(s.vw * s.dpr);
+          var pxH = Math.round(s.vh * s.dpr);
+          cv.width  = pxW;
+          cv.height = pxH;
+
+          try {
+            if (window.unityInstance && window.unityInstance.Module && typeof window.unityInstance.Module.setCanvasSize === 'function') {
+              window.unityInstance.Module.setCanvasSize(pxW, pxH);
+            }
+          } catch(_) {}
+
+          lastW = s.vw; lastH = s.vh; lastDpr = s.dpr;
+        }
+
+        function scheduleApply(){
+          if (scheduled) return;
+          scheduled = true;
+          requestAnimationFrame(function(){
+            scheduled = false;
+            applyCanvasSizeNow();
+          });
+        }
+
+        function handleResize(){
+          var vv = window.visualViewport;
+          var currentVVH = (vv && vv.height) || window.innerHeight;
+          var delta = Math.abs(currentVVH - initialH) / Math.max(1, initialH);
+
+          // 1) Ignore IME-driven resizes entirely (do not re-baseline or resize while keyboard is open)
+          if (isKeyboardOpen()) return;
+
+          // 2) Only re-baseline on large changes when IME is NOT open (rotation / URL bar collapse)
+          if (delta >= 0.30) {
+            resetBaseline(currentVVH);
+            return;
+          }
+
+          // 3) Normal small changes
+          scheduleApply();
+        }
+
+        // Public
+        window.Roomy = window.Roomy || {};
+        window.Roomy.applyCanvasSize = scheduleApply;
+
+        document.addEventListener('DOMContentLoaded', applyCanvasSizeNow);
+
+        window.addEventListener('resize', handleResize);
+        if (window.visualViewport) window.visualViewport.addEventListener('resize', handleResize);
+
+        window.addEventListener('orientationchange', function(){
+          // Give the browser a tick to settle dimensions
+          requestAnimationFrame(function(){ resetBaseline(); });
+          requestAnimationFrame(function(){ scheduleApply(); });
+        });
+
+        window.addEventListener('focusin', function(e){
+          var t = e.target;
+          if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) {
+            window.scrollTo(0, 0);
+          }
+        });
+
+        // Keep an up-to-date IME signal (class toggle is optional but useful for CSS/debug)
+        (function(){
+          if (!window.visualViewport) return;
+          var root = document.documentElement;
+          function updateIME(){
+            var vv = window.visualViewport;
+            var open = isKeyboardOpen();
+            // Compute how much of the layout viewport is obscured at the bottom:
+            // obscured = layoutHeight - (vv.height + vv.offsetTop)
+            var layoutH = window.innerHeight || 0;
+            var vvh = (vv && vv.height) || layoutH;
+            var off = (vv && vv.offsetTop) || 0;
+            var obscured = Math.max(0, layoutH - (vvh + off));
+            // Toggle class and expose the pixel value to CSS
+            root.classList.toggle('ime-open', !!open);
+            root.style.setProperty('--kb', (open ? obscured : 0) + 'px');
+            root.style.setProperty('--kb-buffer', open ? '44px' : '0px'); // ensure the thin input preview strip is clear
+          }
+          window.visualViewport.addEventListener('resize', updateIME);
+          window.visualViewport.addEventListener('scroll', updateIME); // iOS sometimes moves vv instead of resizing
+          updateIME();
+        })();
+      })();
+    </script>
+
+
+    <!-- Unity initialization script -->
+    <script>
+      // System modal helpers
+      (function(){ 
+        var backdrop = null, okBtn = null, desc = null;
+        function ensure() {
+          if (!backdrop) { backdrop = document.getElementById('system-modal-backdrop'); }
+          if (!okBtn) { okBtn = document.getElementById('system-modal-ok'); }
+          if (!desc) { desc = document.getElementById('sysmod-desc'); }
+        }
+        window.Roomy = window.Roomy || {};
+        window.Roomy.showErrorPopup = function(message) {
+          ensure();
+          if (desc && message) desc.textContent = message;
+          if (backdrop) {
+            backdrop.style.display = 'flex';
+            document.body.classList.add('lock-scroll');
+          }
+        };
+        window.Roomy.hideErrorPopup = function() {
+          ensure();
+          if (backdrop) {
+            backdrop.style.display = 'none';
+            document.body.classList.remove('lock-scroll');
+          }
+        };
+        document.addEventListener('DOMContentLoaded', function(){ 
+          ensure();
+          if (okBtn) okBtn.addEventListener('click', window.Roomy.hideErrorPopup);
+          // Also close on backdrop click (optional)
+          if (backdrop) backdrop.addEventListener('click', function(e){ 
+            if (e.target === backdrop) window.Roomy.hideErrorPopup();
+          });
+        });
+      })();
+      var ROOMY_DEFAULT_ERROR_MSG = "Oops! We’re having some trouble loading the floor planner. Please try uploading again.";
+    </script>
+    <script>
+      window.addEventListener("load", function () {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("ServiceWorker.js")
+            .then(function (reg) {
+              console.log("ServiceWorker registered with scope:", reg.scope);
+            })
+            .catch(function (err) {
+              console.warn("ServiceWorker registration failed:", err);
+            });
+        }
+      });
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      if (canvas) { canvas.setAttribute('tabindex','-1'); canvas.style.display = 'block'; }
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var warningBanner = document.querySelector("#unity-warning");
+
+      function unityShowBanner(msg, type) {
+        try {
+          const level = (type === 'error') ? 'error' : 'warn';
+          console[level]('[Unity]', msg);
+        } catch (_) {
+          // swallow
+        }
+      }
+
+      var buildUrl = "__BUILD_URL__";
+      var cacheBust = "?v=__PRODUCT_VERSION__";
+      var loaderUrl = buildUrl + "/__BUILD_NAME__.loader.js" + cacheBust;
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/__BUILD_NAME__.data.br" + cacheBust,
+        frameworkUrl: buildUrl + "/__BUILD_NAME__.framework.js.br" + cacheBust,
+        codeUrl: buildUrl + "/__BUILD_NAME__.wasm.br" + cacheBust,
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "__COMPANY_NAME__",
+        productName: "__PRODUCT_NAME__",
+        productVersion: "__PRODUCT_VERSION__",
+        showBanner: unityShowBanner,
+      };
+      // Keep default buffer behavior (better perf). Flicker fix is handled by our resize manager.
+      config.webglContextAttributes = { preserveDrawingBuffer: false };
+
+      // --- OpenReplay recording-aware adjustments (tiny & isolated) ---
+      // Enable back-buffer preservation and skip veils when a recording is active or forced via ?or=1 / localStorage('roomyOR'='1').
+      (function(){
+            try {
+              var __OR_FORCE__ = /\bor=1\b/.test(location.search) || localStorage.getItem('roomyOR') === '1';
+              var __OR_ACTIVE__ = false;
+              try {
+                __OR_ACTIVE__ = !!(window.OpenReplay && ((OpenReplay.isActive && OpenReplay.isActive()) || OpenReplay.getSessionToken));
+              } catch (_) { /* ignore */ }
+              var __OR_RECORDING__ = __OR_FORCE__ || __OR_ACTIVE__;
+
+              if (__OR_RECORDING__) {
+                // 1) Make the canvas capturable for HD recording
+                config.webglContextAttributes.preserveDrawingBuffer = true;
+
+                // 2) Do not force container/canvas visibility or sizing here.
+                // React/body classes own UI state; overlays remain intact even during recording.
+                try { if (window.Roomy && typeof Roomy.applyCanvasSize === 'function') Roomy.applyCanvasSize(); } catch (_) { /* ignore */ }
+              }
+            } catch (_) { /* ignore */ }
+      })();
+
+      // Viewport meta is handled statically in <head>; no runtime injection needed.
+
+      // Enable safe-area paddings on iOS and standalone PWAs (Android/iOS) to avoid bottom cutoffs
+      (function(){
+        try {
+          var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+          var isStandalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || !!navigator.standalone;
+          var cont = document.getElementById('unity-container');
+          if (cont && (isIOS || isStandalone)) {
+            cont.classList.add('safe-area');
+          }
+        } catch(_) { /* ignore */ }
+      })();
+
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        // SOLUTION: Wait for createUnityInstance to be properly defined
+        function waitForUnityLoader() {
+          if (typeof createUnityInstance === "function") {
+            if (window.Roomy && window.Roomy.applyCanvasSize) window.Roomy.applyCanvasSize();
+            console.log("Unity loader ready, creating instance...");
+            createUnityInstance(canvas, config, (progress) => {
+              progressBarFull.style.width = 100 * progress + "%";
+            }).then((unityInstance) => {
+              if (window.Roomy && window.Roomy.applyCanvasSize) window.Roomy.applyCanvasSize();
+              loadingBar.style.display = "none";
+              // Nudge sizing one frame after Unity is ready (prevents black flash)
+              requestAnimationFrame(function(){
+                try { if (window.Roomy && typeof Roomy.applyCanvasSize === 'function') Roomy.applyCanvasSize(); } catch(_){}
+              });
+              
+              // IMPORTANT: Make unityInstance globally available for React
+              window.unityInstance = unityInstance;
+              try { if (window.Roomy && typeof window.Roomy.applyCanvasSize === 'function') window.Roomy.applyCanvasSize(); } catch(_){}
+              
+              // Unity is now loaded and ready
+              // Respect UI flow: only auto-show Unity if allowed
+              try {
+                var shouldAutoShow = !!(window.Roomy && window.Roomy.autoShowUnity);
+                if (shouldAutoShow) {
+                  document.body.classList.add('show-unity');
+                  document.body.classList.add('hide-react');
+                  document.body.classList.remove('is-overlay');
+                  document.body.classList.remove('is-overlay--branded');
+                  document.body.classList.remove('lock-scroll');
+                } else {
+                  console.log('Unity ready; awaiting React to reveal container (autoShowUnity=false)');
+                }
+              } catch(_) { /* no-op */ }
+              console.log("Unity instance created and ready");
+            }).catch((message) => {
+              console.error("Unity instance creation failed:", message);
+              window.Roomy.showErrorPopup(ROOMY_DEFAULT_ERROR_MSG);
+              // Restore uploader overlay and hide Unity via body state
+              document.body.classList.remove('show-unity');
+              document.body.classList.remove('hide-react');
+              document.body.classList.add('is-overlay');
+              document.body.classList.remove('lock-scroll');
+            });
+          } else {
+            console.log("Waiting for Unity loader to be ready...");
+            // Wait a bit and try again
+            setTimeout(waitForUnityLoader, 10);
+          }
+        }
+        waitForUnityLoader();
+      };
+      
+      script.onerror = () => {
+        console.error("Failed to load Unity loader script:", loaderUrl);
+        window.Roomy.showErrorPopup(ROOMY_DEFAULT_ERROR_MSG);
+        // Restore uploader overlay and hide Unity via body state
+        document.body.classList.remove('show-unity');
+        document.body.classList.remove('hide-react');
+        document.body.classList.add('is-overlay');
+        document.body.classList.remove('lock-scroll');
+      };
+      
+      document.body.appendChild(script);
+    </script>
+  </body>
+ </html>

@@ -1,0 +1,15 @@
+{
+    "name": "27Slicer",
+    "references": [
+        "GUID:f55bbc237f552174d977a627df3859aa"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

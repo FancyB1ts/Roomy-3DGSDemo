@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e478ab7d25502d349a027c2058c4db36
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 131052
+  packageName: Language Localization
+  packageVersion: 4.0.0
+  assetPath: Assets/LocalizationPackage/ExampleContent/Localization/Slovak.xml
+  uploadId: 669965

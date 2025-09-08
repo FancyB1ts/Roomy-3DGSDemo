@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 77ebff2cafc6ef44aac0b18da2e6588f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/Shared Resources/Materials/cloth red.mat
+  uploadId: 764903

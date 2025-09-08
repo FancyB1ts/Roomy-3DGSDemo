@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d44490a8381363e429e15abc98b0d85e
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/Shared Resources/Scripts/27Slicer.Demo.asmdef
+  uploadId: 764903

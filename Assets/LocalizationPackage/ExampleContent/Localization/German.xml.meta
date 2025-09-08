@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e4f8531469c7e124fb8b3e72e15ffeb2
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 131052
+  packageName: Language Localization
+  packageVersion: 4.0.0
+  assetPath: Assets/LocalizationPackage/ExampleContent/Localization/German.xml
+  uploadId: 669965

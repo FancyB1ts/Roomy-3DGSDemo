@@ -1,0 +1,35 @@
+Sunny Valley Studio License for "House Building System Unity" Project Template
+
+Version 1.0, March 2023
+
+This House Building System Unity Project Template ("the Template") is provided by Sunny Valley Studio ("the Licensor") under the terms of this license ("the License"). By using or distributing the Template, you agree to be bound by the terms of this License.
+
+Scope of License
+This License grants you a worldwide, royalty-free, non-exclusive, perpetual, irrevocable license to use, copy, modify, distribute, and create derivative works based on the Template, subject to the following restrictions:
+
+You may not share or distribute the Template or any portions of its code in its original or modified form with others, except as part of a derivative work you create.
+
+You may not sell or resell the Template or any portions of its code in its original or modified form as a standalone product or as part of a product package.
+
+You must include including this licence in any derivative work you create using the Template.
+
+Attribution:
+It is not recquired to give attribution when using this template however it would be highly appreciated if you would inclde "Made using a 'House Building System in Unity' Project Template from Sunny Valley Studio at www.SunnyValleyStudio.com".
+
+Warranties and Liability
+The Template is provided "as is" without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the Licensor be liable for any claim, damages, or other liability arising from the use of the Template or any derivative work based on it.
+
+Termination
+The License will automatically terminate if you breach any of its terms. Upon termination, you must immediately cease all use, distribution, and creation of derivative works based on the Template.
+
+Miscellaneous
+This License constitutes the entire agreement between you and the Licensor regarding the Template and supersedes all prior or contemporaneous communications and proposals, whether oral or written, between you and the Licensor regarding the Template.
+
+If any provision of this License is found to be invalid or unenforceable, the remaining provisions will remain in full force and effect.
+
+Changes to License
+The Licensor reserves the right to modify this License at any time and without prior notice. Any such modifications will be effective immediately upon posting on the Licensor's website.
+
+By using the Template, you agree to be bound by the most current version of this License available on the Licensor's website.
+
+If you have any questions about this License or the Template, please contact the Licensor at contact@sunnyvalleystudio.com or at www.SunnyValleyStudio.com

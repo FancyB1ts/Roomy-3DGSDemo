@@ -1,0 +1,217 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8741733396975334413
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 367381741202193757, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 367381741202193757, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 460
+      objectReference: {fileID: 0}
+    - target: {fileID: 367381741202193757, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 367381741202193757, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 367381741202193757, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 367381741202193757, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 772504197944791537, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 772504197944791537, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1999411666283983551, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Complex Scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068009993227415286, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264355279283963594, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264355279283963594, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264355279283963594, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264355279283963594, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264355279283963594, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264355279283963594, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264355279283963594, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264355279283963594, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264355279283963594, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264355279283963594, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3264355279283963594, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3757770711998543509, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Slice Modifiers
+      objectReference: {fileID: 0}
+    - target: {fileID: 3757770711998543509, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3964681451508501436, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_Text
+      value: "This demo uses a ColliderSlicerComponent to slice mesh colliders\r\n\r\nThe
+        couch and the table share the collider's mesh with the mesh filter. The mesh
+        is sliced once and the result is shared\r between the collider and mesh filter.\r\n\r\nThe
+        rug uses a simplified mesh for the collider that is not shared with its mesh
+        filter and as such must be separately sliced.\r\n\r\nThe cardboard box uses
+        box colliders, these colliders are stretched by the slicer so they keep their
+        correct proportions.\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103220424491011036, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103220424491011036, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 460
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103220424491011036, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103220424491011036, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103220424491011036, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103220424491011036, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4365411038297035990, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6315744065095338717, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 6315744065095338717, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 460
+      objectReference: {fileID: 0}
+    - target: {fileID: 6315744065095338717, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6315744065095338717, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6315744065095338717, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6315744065095338717, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536629591213744812, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_Text
+      value: Collider Slicing
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133083194906605691, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_Name
+      value: UI Collider Slicing
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876851268980220552, guid: 9b8454229e3f3a64b82f69ed08aaa846,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9b8454229e3f3a64b82f69ed08aaa846, type: 3}

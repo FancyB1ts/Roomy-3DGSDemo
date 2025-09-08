@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 3839ea5dc224d874c8095ab3b7144c50
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/Shared Resources/Prefabs/Sphere Physic
+    Material.physicMaterial
+  uploadId: 764903

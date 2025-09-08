@@ -1,0 +1,100 @@
+[[headers]]
+  for = "/Build/*.data.br"
+  [headers.values]
+    Content-Encoding = "br"
+    Content-Type = "application/octet-stream"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/Build/*.wasm.br"
+  [headers.values]
+    Content-Encoding = "br"
+    Content-Type = "application/wasm"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/Build/*.wasm"
+  [headers.values]
+    Content-Type = "application/wasm"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/Build/*.js.br"
+  [headers.values]
+    Content-Encoding = "br"
+    Content-Type = "application/javascript"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/Build/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/Build/*.symbols.json"
+  [headers.values]
+    Content-Type = "application/json"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[build]
+  publish = "."
+  functions = "functions"
+
+# Optional: Add security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Redirect for SPA routing (if needed for Unity)
+[[redirects]]
+  from = "/game"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[headers]]
+  for = "/Build/*.symbols.json.br"
+  [headers.values]
+    Content-Encoding = "br"
+    Content-Type = "application/json"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Unity alt extensions (.unityweb)
+[[headers]]
+  for = "/Build/*.wasm.unityweb"
+  [headers.values]
+    Content-Encoding = "br"
+    Content-Type = "application/wasm"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/Build/*.data.unityweb"
+  [headers.values]
+    Content-Encoding = "br"
+    Content-Type = "application/octet-stream"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/Build/*.framework.js.unityweb"
+  [headers.values]
+    Content-Encoding = "br"
+    Content-Type = "application/javascript"
+    Cache-Control = "public, max-age=31536000, immutable"

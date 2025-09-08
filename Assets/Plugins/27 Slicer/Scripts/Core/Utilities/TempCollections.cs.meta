@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 00209a019a807c84abc07822137718f5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Scripts/Core/Utilities/TempCollections.cs
+  uploadId: 764903

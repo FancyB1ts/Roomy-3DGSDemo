@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: dfb0831b74c719a42b08ef7ced052adb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Editor/SlicerComponents/MeshSlicerComponentEditor.cs
+  uploadId: 764903

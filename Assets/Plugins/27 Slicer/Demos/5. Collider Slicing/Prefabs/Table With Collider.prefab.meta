@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3e4c8136be3cb2543a818e922ba32833
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/5. Collider Slicing/Prefabs/Table With
+    Collider.prefab
+  uploadId: 764903

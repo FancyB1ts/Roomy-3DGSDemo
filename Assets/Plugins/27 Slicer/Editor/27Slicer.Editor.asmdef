@@ -1,0 +1,18 @@
+{
+    "name": "27Slicer.Editor",
+    "references": [
+        "GUID:f55bbc237f552174d977a627df3859aa",
+        "GUID:a11ca6962c7c6a847826d4f3f3c8e789"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

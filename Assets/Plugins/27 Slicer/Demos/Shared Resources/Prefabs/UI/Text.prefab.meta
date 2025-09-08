@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0db7c56455655d44796911f5e345a3ec
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/Shared Resources/Prefabs/UI/Text.prefab
+  uploadId: 764903

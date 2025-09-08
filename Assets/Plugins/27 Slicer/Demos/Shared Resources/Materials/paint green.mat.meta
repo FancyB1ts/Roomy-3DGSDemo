@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ca8f1ee1b253c2f46901256f02d05283
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/Shared Resources/Materials/paint green.mat
+  uploadId: 764903

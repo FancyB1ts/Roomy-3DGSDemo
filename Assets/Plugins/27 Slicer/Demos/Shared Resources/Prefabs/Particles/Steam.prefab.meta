@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0ad10ee0d8c95bc4bbca7024bd26e13b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/Shared Resources/Prefabs/Particles/Steam.prefab
+  uploadId: 764903

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0bd20e6f2ea486b438a29c9598cd0971
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Scripts/Core/Utilities/MatrixUtility.cs
+  uploadId: 764903

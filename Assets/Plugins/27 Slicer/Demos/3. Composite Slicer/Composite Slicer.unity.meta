@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: aa56a8ce397d529468ffca97dbdd453c
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/3. Composite Slicer/Composite Slicer.unity
+  uploadId: 764903

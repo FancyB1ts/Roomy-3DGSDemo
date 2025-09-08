@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0f95c8cb871e8d94cbf0ffb68eedf81c
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/5. Collider Slicing/Collider Slicing.unity
+  uploadId: 764903

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 0fd9be665956d714dbe0eb46953cc84d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Editor/SliceModifiers/SliceModifierEditor.cs
+  uploadId: 764903

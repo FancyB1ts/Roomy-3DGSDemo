@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 382825bcda54edf4a970dc6889e6e448
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/Shared Resources/Prefabs/Main Camera.prefab
+  uploadId: 764903

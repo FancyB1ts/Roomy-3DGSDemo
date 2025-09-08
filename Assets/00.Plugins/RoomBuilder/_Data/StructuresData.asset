@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b84be0e6d67eb84b837237865aeecbd, type: 3}
+  m_Name: StructuresData
+  m_EditorClassIdentifier: 
+  structures:
+  - name: Wall
+    ID: 0
+    size: {x: 1, y: 1}
+    objectPlacementType: 2
+    prefab: {fileID: 454405300934370620, guid: 16bfb3862f6e6704f854cdb58d709081, type: 3}
+    previewObject: {fileID: 5023585483840505682, guid: 194b2597d523bd04d91c0b228bd173e5, type: 3}
+  - name: Floor
+    ID: 1
+    size: {x: 2, y: 2}
+    objectPlacementType: 1
+    prefab: {fileID: 175886647813805099, guid: 6bafb9556d35ba840bebea4eea7d34c2, type: 3}
+    previewObject: {fileID: 175886647813805099, guid: 6bafb9556d35ba840bebea4eea7d34c2, type: 3}
+  - name: Window
+    ID: 2
+    size: {x: 2, y: 1}
+    objectPlacementType: 3
+    prefab: {fileID: 200308021796249705, guid: 69d526bb2e0558a44945047260e08658, type: 3}
+    previewObject: {fileID: 200308021796249705, guid: 69d526bb2e0558a44945047260e08658, type: 3}
+  - name: Door
+    ID: 3
+    size: {x: 2, y: 1}
+    objectPlacementType: 3
+    prefab: {fileID: 4180586168491985918, guid: b5dbef82417fa2c4687cae1138f12494, type: 3}
+    previewObject: {fileID: 4180586168491985918, guid: b5dbef82417fa2c4687cae1138f12494, type: 3}
+  - name: Armchair
+    ID: 4
+    size: {x: 9, y: 9}
+    objectPlacementType: 5
+    prefab: {fileID: 4756053164052020678, guid: 595598fbddf7e4d60b9a81f1dab7d7f5, type: 3}
+    previewObject: {fileID: 4756053164052020678, guid: 595598fbddf7e4d60b9a81f1dab7d7f5, type: 3}
+  - name: Sofa
+    ID: 5
+    size: {x: 14, y: 9}
+    objectPlacementType: 5
+    prefab: {fileID: 8277564612505451786, guid: 8009b0d6883bb41ba800933eb907c15b, type: 3}
+    previewObject: {fileID: 8277564612505451786, guid: 8009b0d6883bb41ba800933eb907c15b, type: 3}
+  - name: TVSet
+    ID: 6
+    size: {x: 12, y: 14}
+    objectPlacementType: 5
+    prefab: {fileID: 6966110209557405209, guid: 1347156fa37404926b978a23a1f93783, type: 3}
+    previewObject: {fileID: 6966110209557405209, guid: 1347156fa37404926b978a23a1f93783, type: 3}
+  - name: LowTable
+    ID: 7
+    size: {x: 9, y: 22}
+    objectPlacementType: 5
+    prefab: {fileID: 5742319822113827019, guid: 48e7af1a506bf4b8d82aeeaf549e720e, type: 3}
+    previewObject: {fileID: 5742319822113827019, guid: 48e7af1a506bf4b8d82aeeaf549e720e, type: 3}
+  - name: Bed small
+    ID: 8
+    size: {x: 11, y: 2}
+    objectPlacementType: 5
+    prefab: {fileID: 6502979505767147083, guid: 100f8527b8de54f1d84d306caa29a5bf, type: 3}
+    previewObject: {fileID: 6502979505767147083, guid: 100f8527b8de54f1d84d306caa29a5bf, type: 3}
+  - name: Bed big
+    ID: 9
+    size: {x: 15, y: 22}
+    objectPlacementType: 5
+    prefab: {fileID: 7213048799458027881, guid: 41acc7e4cbb9e468c9a6c38beb05caa4, type: 3}
+    previewObject: {fileID: 7213048799458027881, guid: 41acc7e4cbb9e468c9a6c38beb05caa4, type: 3}
+  - name: Chair
+    ID: 10
+    size: {x: 6, y: 6}
+    objectPlacementType: 5
+    prefab: {fileID: 1711307788333276086, guid: efbb5a582fbbd4c9aaaff8458c224a9a, type: 3}
+    previewObject: {fileID: 1711307788333276086, guid: efbb5a582fbbd4c9aaaff8458c224a9a, type: 3}
+  - name: Table
+    ID: 11
+    size: {x: 10, y: 10}
+    objectPlacementType: 5
+    prefab: {fileID: 4975694012920019413, guid: 3862f69decdbd447a8a03cf52ec66ac7, type: 3}
+    previewObject: {fileID: 4975694012920019413, guid: 3862f69decdbd447a8a03cf52ec66ac7, type: 3}
+  - name: Desk
+    ID: 12
+    size: {x: 14, y: 7}
+    objectPlacementType: 5
+    prefab: {fileID: 3707731163418793290, guid: 72ce32659fa2f4dd5b09bdd823b347f8, type: 3}
+    previewObject: {fileID: 3707731163418793290, guid: 72ce32659fa2f4dd5b09bdd823b347f8, type: 3}
+  - name: OfficeChair
+    ID: 13
+    size: {x: 7, y: 7}
+    objectPlacementType: 5
+    prefab: {fileID: 8197543495931711140, guid: aee5e5bac80df47a19cb81f827124827, type: 3}
+    previewObject: {fileID: 8197543495931711140, guid: aee5e5bac80df47a19cb81f827124827, type: 3}
+  - name: Storage small
+    ID: 14
+    size: {x: 5, y: 5}
+    objectPlacementType: 5
+    prefab: {fileID: 4234228911423454389, guid: 0a6d61cd16eac47bc9e4cd55543f623d, type: 3}
+    previewObject: {fileID: 4234228911423454389, guid: 0a6d61cd16eac47bc9e4cd55543f623d, type: 3}
+  - name: Storage big
+    ID: 15
+    size: {x: 8, y: 5}
+    objectPlacementType: 5
+    prefab: {fileID: 7052969733565694091, guid: 6b977cc35dd954b4e902c07071c0550f, type: 3}
+    previewObject: {fileID: 7052969733565694091, guid: 6b977cc35dd954b4e902c07071c0550f, type: 3}
+  - name: Closet
+    ID: 16
+    size: {x: 14, y: 6}
+    objectPlacementType: 5
+    prefab: {fileID: 2680311449559618606, guid: 204ffbd92cc4b48e6bdc080c70861867, type: 3}
+    previewObject: {fileID: 2680311449559618606, guid: 204ffbd92cc4b48e6bdc080c70861867, type: 3}
+  - name: Shelf
+    ID: 17
+    size: {x: 11, y: 2}
+    objectPlacementType: 5
+    prefab: {fileID: 7281800442589241360, guid: 0acf915819e4e4bf481507f8f6eaab4d, type: 3}
+    previewObject: {fileID: 7281800442589241360, guid: 0acf915819e4e4bf481507f8f6eaab4d, type: 3}
+  - name: Whiteware low
+    ID: 18
+    size: {x: 6, y: 7}
+    objectPlacementType: 5
+    prefab: {fileID: 3726463530687053751, guid: b47138fdea3c84feab25bff64029f9dc, type: 3}
+    previewObject: {fileID: 3726463530687053751, guid: b47138fdea3c84feab25bff64029f9dc, type: 3}
+  - name: Whitware high
+    ID: 19
+    size: {x: 6, y: 7}
+    objectPlacementType: 5
+    prefab: {fileID: 9167734009561608655, guid: 2315ab6ca664c424fbba6c589c8fbfdd, type: 3}
+    previewObject: {fileID: 9167734009561608655, guid: 2315ab6ca664c424fbba6c589c8fbfdd, type: 3}

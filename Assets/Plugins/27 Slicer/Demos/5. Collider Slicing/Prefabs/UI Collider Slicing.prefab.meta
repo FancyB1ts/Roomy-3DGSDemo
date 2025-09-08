@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3d5dbe6692d90b8489d9ea01400f680d
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/5. Collider Slicing/Prefabs/UI Collider
+    Slicing.prefab
+  uploadId: 764903

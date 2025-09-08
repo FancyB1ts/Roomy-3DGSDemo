@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5e3f42a0e8d2e7c408eb22d6a63e7e9c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Scripts/SliceModifiers/ScaleSliceModifier.cs
+  uploadId: 764903

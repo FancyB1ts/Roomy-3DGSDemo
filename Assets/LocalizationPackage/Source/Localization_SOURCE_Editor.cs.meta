@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 41ca24d42310958418db40d637adf8c0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 131052
+  packageName: Language Localization
+  packageVersion: 4.0.0
+  assetPath: Assets/LocalizationPackage/Source/Localization_SOURCE_Editor.cs
+  uploadId: 669965

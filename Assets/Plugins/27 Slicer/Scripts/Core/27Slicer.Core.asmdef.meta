@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f55bbc237f552174d977a627df3859aa
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Scripts/Core/27Slicer.Core.asmdef
+  uploadId: 764903

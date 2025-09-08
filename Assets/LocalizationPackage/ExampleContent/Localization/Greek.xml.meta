@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5ed263c9750ba6f4cb6d3ac52277cd8e
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 131052
+  packageName: Language Localization
+  packageVersion: 4.0.0
+  assetPath: Assets/LocalizationPackage/ExampleContent/Localization/Greek.xml
+  uploadId: 669965

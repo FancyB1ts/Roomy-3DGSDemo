@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Area_Bedroom
+  - Area_Dining
+  - Area_Living
+  - Area_Office
+  - Area_Kitchen
+  - Area_FacilityBathroom
+  - Furniture_Bed
+  - Furniture_BedsideTable
+  - Furniture_DiningTable
+  - Furniture_LowTable
+  - Furniture_Shelf
+  - Furniture_Armchair
+  - Furniture_Sofa
+  - Furniture_Storage
+  - Furniture_TVSet
+  - Furniture_OfficeChair
+  - Furniture_Desk
+  - Furniture_Closet
+  - Furniture_WhitewareHigh
+  - Furniture_WhitewareLow
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Furniture
+  - Grid
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  m_RenderingLayers:
+  - Default

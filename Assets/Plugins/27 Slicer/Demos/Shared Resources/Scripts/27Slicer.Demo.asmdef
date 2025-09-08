@@ -1,0 +1,16 @@
+{
+    "name": "27Slicer.Demo",
+    "references": [
+        "GUID:a11ca6962c7c6a847826d4f3f3c8e789",
+        "GUID:f55bbc237f552174d977a627df3859aa"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

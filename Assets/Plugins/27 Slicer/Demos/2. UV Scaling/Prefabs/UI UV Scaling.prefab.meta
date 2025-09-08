@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c84e8de06a3dc02429a7ab158008474c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/2. UV Scaling/Prefabs/UI UV Scaling.prefab
+  uploadId: 764903

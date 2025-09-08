@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ae63fc4a75e1971459dc2f1984e40485
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Editor/Drawers/UvMappingSettingsDrawer.cs
+  uploadId: 764903

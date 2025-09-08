@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f2e7f62088525d8479ea5066992dba76
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 204453
+  packageName: 27 Slicer
+  packageVersion: 1.4.0
+  assetPath: Assets/Plugins/27 Slicer/Demos/Shared Resources/Textures/Paterns/credits.txt
+  uploadId: 764903
